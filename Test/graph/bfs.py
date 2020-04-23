@@ -7,7 +7,6 @@ from ADT import map as map
 from DataStructures import edge as e
 from ADT import stack as stk
 from ADT import list as lt
-from Test.graph import bfs2 as bfs
 
 
 
@@ -28,14 +27,25 @@ def bfs (search, source):
     while not (q.isEmpty(queue)):
         v = q.dequeue (queue)
         visited_v = map.get(search['visitedMap'], v)['value']
+        adjs = g.adjacents(search['graph'],v)
+        adjs_iter = it.newIterator (adjs)
+        while (it.hasNext(adjs_iter)):
+            w = it.next (adjs_iter)
+            visited_w = map.get(search['visitedMap'], w)
+            if visited_w == None:
+                map.put(search['visitedMap'], w, {'marked':True, 'edgeTo':v, 'distTo':visited_v['distTo']+1})
+                q.enqueue(queue, w)
         # Loop v's adjacent vertices with w
         # If w has not visited 
         # Visit w 
         # Enqueue w
 
 def hasPathTo(search, v):
-    # Has v been visited?
+    element = map.get(search['visitedMap'],v)
+    if element and element['value']['marked']==True:
+        return True
     return False
+    # Has v been visited?
 
 
 
@@ -43,6 +53,10 @@ def pathTo(search, v):
     if hasPathTo(search, v)==False:
         return None
     path= stk.newStack()
+    while v != search['s']:
+        stk.push(path,v)
+        v = map.get(search['visitedMap'],v)['value']['edgeTo']
+    stk.push(path,search['s'])
     # Loop through previous vertices (edgeTo) until source vertex:
     # Add each previous vertex to the path
     # At the end of the loop, add the source vertex to the path
