@@ -48,23 +48,33 @@ def printList (lst):
 
 # Funciones para la carga de datos 
 
-def loadBookReviews (catalog, sep=';'):
+def loadFlights (catalog, sep=';'):
     """
     Carga los libros del archivo.  Por cada libro se toman sus autores y por 
     cada uno de ellos, se crea un arbol de autores, a dicho autor y una
     referencia al libro que se esta procesando.
     """
     t1_start = process_time() #tiempo inicial
-    booksfile = cf.data_dir + 'GoodReads/book_reviews.csv'
+    nodesfile = cf.data_dir + 'flights_nodes.csv'
+    edgesfile = cf.data_dir + 'flights_edges.csv'
     dialect = csv.excel()
     dialect.delimiter=sep
-    with open(booksfile, encoding="utf-8-sig") as csvfile:
+    with open(nodesfile, encoding="utf-8-sig") as csvfile:
         spamreader = csv.DictReader(csvfile, dialect=dialect)
+        t2_start = process_time() #tiempo inicial
         for row in spamreader:
-            model.addReviewNode(catalog, row)
-            model.addReviewEdge(catalog, row)
+            model.addNode(catalog, row)
+        t2_stop = process_time() #tiempo final
+    with open(edgesfile, encoding="utf-8-sig") as csvfile:
+        spamreader = csv.DictReader(csvfile, dialect=dialect)
+        t3_start = process_time() #tiempo inicial
+        for row in spamreader:
+            model.addEdge(catalog, row)
+        t3_stop = process_time() #tiempo final
     t1_stop = process_time() #tiempo final
-    print("Tiempo de ejecución carga de grafo de revisiones de libros:",t1_stop-t1_start," segundos")   
+    print("Tiempo de ejecución carga de grafo de vuelos",t1_stop-t1_start," segundos\n"
+    "Tiempo de carga de nodos",t2_stop-t2_start,"segundos\n"
+    "Tiempo de carga de arcos",t3_stop-t3_start,"segundos")   
 
 
 
@@ -82,7 +92,7 @@ def loadData (catalog):
     Carga los datos de los archivos y cargar los datos en la
     estructura de datos
     """
-    loadBookReviews(catalog)    
+    loadFlights(catalog)    
 
 # Funciones llamadas desde la vista y enviadas al modelo
 

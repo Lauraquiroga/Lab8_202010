@@ -27,7 +27,8 @@ from ADT import map as map
 from ADT import list as lt
 from DataStructures import listiterator as it
 from datetime import datetime
-
+from Test.graph import dfs
+from Test.graph import bfs
 """
 Se define la estructura de un catálogo de libros.
 El catálogo tendrá tres listas, una para libros, otra para autores 
@@ -40,46 +41,51 @@ def newCatalog():
     """
     Inicializa el catálogo y retorna el catalogo inicializado.
     """
-    rgraph = g.newGraph(5500,compareByKey)
-    catalog = {'reviewGraph':rgraph}    
+    graph = g.newGraph(111353 ,compareByKey)
+    catalog = {'Graph':graph}    
     return catalog
 
-
-def addReviewNode (catalog, row):
+def addNode (catalog, row):
     """
     Adiciona un nodo para almacenar un libro o usuario 
     """
-    if not g.containsVertex(catalog['reviewGraph'], row['book_id']):
-        g.insertVertex (catalog['reviewGraph'], row['book_id'])
-    if not g.containsVertex(catalog['reviewGraph'], row['user_id']):
-        g.insertVertex (catalog['reviewGraph'], row['user_id'])
+    if not g.containsVertex(catalog['Graph'], row['VERTEX']):
+        g.insertVertex (catalog['Graph'], row['VERTEX'])
 
-def addReviewEdge (catalog, row):
+
+def addEdge (catalog, row):
     """
     Adiciona un enlace para almacenar una revisión
     """
-    g.addEdge (catalog['reviewGraph'], row['book_id'], row['user_id'], row['rating'])
+    g.addEdge (catalog['Graph'], row['SOURCE'], row['DEST'], row['ARRIVAL_DELAY'])
 
 
 def countNodesEdges (catalog):
     """
     Retorna la cantidad de nodos y enlaces del grafo de revisiones
     """
-    nodes = g.numVertex(catalog['reviewGraph'])
-    edges = g.numEdges(catalog['reviewGraph'])
+    nodes = g.numVertex(catalog['Graph'])
+    edges = g.numEdges(catalog['Graph'])
 
     return nodes,edges
+
 
 def getPath (catalog, source, dst):
     """
     Retorna el camino, si existe, entre vertice origen y destino
     """
     print("vertices: ",source,", ",dst)
+    graph = catalog['Graph']
     # ejecutar dfs desde source
+    search= dfs.newDFS(graph, source)
     # obtener el camino hasta dst
+    path = dfs.pathTo(search, dst)
     # retornar el camino
-    return None
+    return path
     
+def shorterPath (catalog, source, dst):
+    pass
+
 # Funciones de comparacion
 
 def compareByKey (key, element):
