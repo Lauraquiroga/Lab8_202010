@@ -27,8 +27,8 @@ from ADT import map as map
 from ADT import list as lt
 from DataStructures import listiterator as it
 from datetime import datetime
-from Test.graph import dfs
-from Test.graph import bfs
+import Test.graph.dfs as dfs
+import Test.graph.bfs as bfs
 """
 Se define la estructura de un catálogo de libros.
 El catálogo tendrá tres listas, una para libros, otra para autores 
@@ -84,7 +84,17 @@ def getPath (catalog, source, dst):
     return path
     
 def shorterPath (catalog, source, dst):
-    pass
+    print("vertices: ",source,", ",dst)
+    graph = catalog['Graph']
+    # ejecutar dfs desde source
+    search= bfs.newBFS(graph, source)
+    # obtener el camino hasta dst
+    path = bfs.pathTo(search, dst)
+    # retornar el camino
+    return path
+
+def countCC(catalog):
+    return dfs.countCC(catalog['Graph'])
 
 # Funciones de comparacion
 

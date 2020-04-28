@@ -44,6 +44,7 @@ def printMenu():
     print("2- Contar nodos y enlances cargados ")
     print("3- Obtener un camino entre dos nodos usando dfs (origen destino)")
     print("4- Obtener el camino con menos enlaces entre dos nodos usando bfs (origen destino)")
+    print("%- Obtener el número de componentes conectados")
     print("0- Salir")
 
 
@@ -80,7 +81,12 @@ def main():
             lst = controller.getPath(catalog,vertices)
             print("El camino entre los vertices es:",lst)
         elif int(inputs[0])==4:
-            pass
+            vertices =input("Ingrese el vertice origen y destino\n")
+            leastPath=controller.getPathLeastEdges(catalog, vertices)
+            print("El camino más corto entre los vértices es: ",leastPath)
+        elif int(inputs[0])==5: #Requerimento 1, contar componentes conectados
+            ccs = controller.countCC(catalog)
+            print("El grafo tiene :", ccs, 'componentes conectados')            
         else:
             sys.exit(0)
     sys.exit(0)

@@ -117,4 +117,17 @@ def getPath(catalog, vertices):
 def getPathLeastEdges(catalog, vertices):
     #llama a una nueva función en model que utiliza bfs enviando src y dst
     #retorna el camino
-    pass
+    t1_start = process_time() #tiempo inicial
+    source=vertices.split(" ")[0]
+    dst=vertices.split(" ")[1]
+    path = model.shorterPath(catalog, source, dst)
+    t1_stop = process_time() #tiempo final
+    print("Tiempo de ejecución de dfs",t1_stop-t1_start," segundos")
+    return path
+
+def countCC(catalog):
+    t1_start = process_time() #tiempo inicial
+    ccs = model.countCC(catalog) 
+    t1_stop = process_time() #tiempo final
+    print("Tiempo de ejecución de conteo de componentes conectados:",t1_stop-t1_start," segundos")
+    return ccs
