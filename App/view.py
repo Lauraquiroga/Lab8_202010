@@ -79,11 +79,17 @@ def main():
         elif int(inputs[0])==3:
             vertices =input("Ingrese el vertice origen y destino\n")
             lst = controller.getPath(catalog,vertices)
-            print("El camino entre los vertices es:",lst)
+            if lst:
+                print("El camino entre los vertices es:",lst)
+            else:
+                print("No hay camino")
         elif int(inputs[0])==4:
             vertices =input("Ingrese el vertice origen y destino\n")
             leastPath=controller.getPathLeastEdges(catalog, vertices)
-            print("El camino más corto entre los vértices es: ",leastPath)
+            if leastPath:
+                print("El camino más corto entre los vértices es: ",leastPath)
+            else:
+                print('No hay camino')
         elif int(inputs[0])==5: #Requerimento 1, contar componentes conectados
             ccs = controller.countCC(catalog)
             print("El grafo tiene :", ccs, 'componentes conectados')            

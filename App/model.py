@@ -79,9 +79,16 @@ def getPath (catalog, source, dst):
     # ejecutar dfs desde source
     search= dfs.newDFS(graph, source)
     # obtener el camino hasta dst
+    response = ''
     path = dfs.pathTo(search, dst)
+    if path:
+        iteraPath=it.newIterator(path)
+        while it.hasNext(iteraPath):
+            Vertex = it.next(iteraPath)
+            response += Vertex + '\n'
+        return response
+    return None
     # retornar el camino
-    return path
     
 def shorterPath (catalog, source, dst):
     print("vertices: ",source,", ",dst)
@@ -89,9 +96,17 @@ def shorterPath (catalog, source, dst):
     # ejecutar dfs desde source
     search= bfs.newBFS(graph, source)
     # obtener el camino hasta dst
+    response = ''
     path = bfs.pathTo(search, dst)
+    if path:
+        iteraPath=it.newIterator(path)
+        while it.hasNext(iteraPath):
+            Vertex = it.next(iteraPath)
+            response += Vertex + '\n'
+        return response
+    return None
     # retornar el camino
-    return path
+    
 
 def countCC(catalog):
     return dfs.countCC(catalog['Graph'])
