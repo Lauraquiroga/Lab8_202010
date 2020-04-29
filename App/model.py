@@ -27,6 +27,7 @@ from ADT import map as map
 from ADT import list as lt
 from DataStructures import listiterator as it
 from datetime import datetime
+from time import process_time
 import Test.graph.dfs as dfs
 import Test.graph.bfs as bfs
 """
@@ -97,6 +98,7 @@ def shorterPath (catalog, source, dst):
     search= bfs.newBFS(graph, source)
     # obtener el camino hasta dst
     response = ''
+    t1_start = process_time() #tiempo inicial
     path = bfs.pathTo(search, dst)
     if path:
         iteraPath=it.newIterator(path)
@@ -104,6 +106,8 @@ def shorterPath (catalog, source, dst):
             Vertex = it.next(iteraPath)
             response += Vertex + '\n'
         return response
+    t1_stop = process_time() #tiempo final
+    print("Tiempo de ejecución de pathTo:",t1_stop-t1_start," segundos")
     return None
     # retornar el camino
     

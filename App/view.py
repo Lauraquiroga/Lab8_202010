@@ -44,7 +44,7 @@ def printMenu():
     print("2- Contar nodos y enlances cargados ")
     print("3- Obtener un camino entre dos nodos usando dfs (origen destino)")
     print("4- Obtener el camino con menos enlaces entre dos nodos usando bfs (origen destino)")
-    print("%- Obtener el número de componentes conectados")
+    print("5- Obtener el número de componentes conectados")
     print("0- Salir")
 
 
